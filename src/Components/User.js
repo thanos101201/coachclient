@@ -1,12 +1,19 @@
 import React, { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { BarChart } from '@mui/x-charts/BarChart';
+import { axisClasses } from '@mui/x-charts';
 import { Carousel, CarouselItem, CarouselControl, CarouselIndicators, CarouselCaption } from 'reactstrap';
+
 function User() {
 
   const [ activeIndex,setActiveIndex ] = useState(0);
   const [ animating, setAnimating ] = useState(false);
 
-  const items = []
+  const items = [
+    {
+      url: 'https://www.youtube.com/watch?v=IODxDxX7oi4',
+    }
+  ]
 
   const next = () => {
     if(animating) return;
@@ -26,18 +33,29 @@ function User() {
     setActiveIndex(newIndex);
   };
 
-  const slides = items.map((item) => {
+  const slides = items.map((item, key) => {
     return (
       <CarouselItem
         onExiting={() => setAnimating(true)}
         onExited={() => setAnimating(false)}
-        key={item.src}
+        key={key}
       >
         <div className='row d-flex justify-content-center'>
           <div className='col-10 col-md-8 d-flex align-items-center'>
-            <img src={item.src} alt={item.altText} />
+            <video src={item.url} />
           </div>
-          <div className='col-10 col-md-4 d-flex align-items-center'></div>
+          <div className='col-10 col-md-4 d-flex align-items-center'>
+            <div className='row d-flex justify-content-center'>
+              <div className='col-10 col-md-3 d-flex align-items-center'>
+              <BarChart
+                xAxis={[{ scaleType: 'band', data: ['group A', 'group B', 'group C'] }]}
+                series={[{ data: [4, 3, 5] }, { data: [1, 6, 3] }, { data: [2, 5, 6] }]}
+                width={500}
+                height={300}
+              />
+              </div>
+            </div>
+          </div>
         </div>
         <CarouselCaption
           captionText={item.caption}
