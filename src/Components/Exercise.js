@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ReactPlayer from 'react-player/lazy';
-import { Card, CardBody, CardHeader, CardTitle } from 'reactstrap';
-import { Chart as ChartJS, CategoryScale,
+import { Button, Card, CardBody, CardHeader, CardTitle } from 'reactstrap';
+import { 
+  Chart as ChartJS, 
+  CategoryScale,
   LinearScale,
   PointElement,
   LineElement,
@@ -41,17 +43,26 @@ function Exercise(props){
   };
 
   return(
-    <div className='row g-3 d-flex justify-content-center'>
-      <div className='col-10 col-md-7 d-flex align-items-center'>
+    <>
+    <div className='row d-flex justify-content-center m-4'>
+        <div className='col-2 d-flex align-items-center'>
+          <Button className='btn btn-success'>Start</Button>
+        </div>
+        <div className='col-2 d-flex align-items-center'>
+          <Button className='btn btn-danger'>Stop</Button>
+        </div>
+      </div>
+    <div className='row g-5 d-flex justify-content-center'>
+      <div className='col-10 g-3 col-md-7 d-flex align-items-center'>
         <ReactPlayer
         url={props.url}
         className="embed-responsive-item"
         width="100%"
-        height="100%"
+        height="150%"
         />
       </div>
-      <div className='col-10 col-md-5 d-flex align-items-center'>
-        <Card>
+      <div className='col-10 g-5 col-md-5 d-flex align-items-center'>
+        <Card style={{width:'100%', height:"150%"}}>
           <CardHeader>
             <CardTitle>
               <h4>Feedback</h4>
@@ -61,7 +72,10 @@ function Exercise(props){
             <div className='row d-flex justify-content-center'>
               <div>
                 <Line
-                data={data} 
+                width="250%"
+                height="250%"
+                //  style={{width:'100%', height:"100%"}}
+                  data={data} 
                 />
               </div>
             </div>
@@ -69,6 +83,7 @@ function Exercise(props){
         </Card>
       </div>
     </div>
+    </>
   );
 }
 
