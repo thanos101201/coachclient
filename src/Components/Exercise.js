@@ -12,78 +12,107 @@ import {
   Tooltip,
   Legend, } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import axios from 'axios';
 
-function Exercise(props){
-  ChartJS.register( CategoryScale,
+function Exercise(props) {
+  ChartJS.register(
+    CategoryScale,
     LinearScale,
     PointElement,
     LineElement,
     Title,
     Tooltip,
-    Legend );
+    Legend
+  );
 
   const DATA_COUNT = 12;
   const labels = [];
   for (let i = 0; i < DATA_COUNT; ++i) {
     labels.push(i.toString());
   }
-  const datapoints = props.datapoint;//[0, 20, 20, 60, 60, 120, NaN, 180, 120, 125, 105, 110, 170];
+  const datapoints = props.datapoint;
   const data = {
     labels: labels,
     datasets: [
       {
         label: 'Cubic interpolation (monotone)',
         data: datapoints,
-        borderColor: "red",
+        borderColor: 'red',
         fill: false,
         cubicInterpolationMode: 'monotone',
-        tension: 0.4
-      }
-    ]
+        tension: 0.4,
+      },
+    ],
   };
 
-  return(
-    <>
-    <div className='row d-flex justify-content-center m-4'>
-        <div className='col-2 d-flex align-items-center'>
-          <Button className='btn btn-success'>Start</Button>
+  return (
+    <div className='container shadow'>
+      <div className='row justify-content-center'>
+        <div className='col-6'>
+          <Button
+            className='btn btn-success'
+            onClick={() => {
+              axios.put('http://localhost:3001/user', {
+                email: props.email,
+                exercise: props.exercise.name,
+              });
+            }}
+          >
+            Start
+          </Button>
         </div>
-        <div className='col-2 d-flex align-items-center'>
-          <Button className='btn btn-danger'>Stop</Button>
+        <div className='col-6'>
+          <Button
+            className='btn btn-danger'
+            onClick={() => {
+              const config = {
+                acctk: localStorage.getItem('acctk'),
+                reftk: localStorage.getItem('reftk'),
+              };
+              axios
+                .get('http://localhost:3001/user/update', config)
+                .then((response) => {
+                  if (response.data.message === 'Data updated') {
+                    localStorage.setItem('acctk', response.data.acctk);
+                    localStorage.setItem('reftk', response.data.reftk);
+                  } else {
+                    alert(response.data.message);
+                  }
+                })
+                .catch((error) => {
+                  alert(error.message);
+                });
+            }}
+          >
+            Stop
+          </Button>
         </div>
       </div>
-    <div className='row g-5 d-flex justify-content-center'>
-      <div className='col-10 g-3 col-md-7 d-flex align-items-center'>
-        <ReactPlayer
-        url={props.url}
-        className="embed-responsive-item"
-        width="100%"
-        height="150%"
-        />
-      </div>
-      <div className='col-10 g-5 col-md-5 d-flex align-items-center'>
-        <Card style={{width:'100%', height:"150%"}}>
-          <CardHeader>
-            <CardTitle>
-              <h4>Feedback</h4>
-            </CardTitle>
-          </CardHeader>
-          <CardBody>
-            <div className='row d-flex justify-content-center'>
-              <div>
-                <Line
-                width="250%"
-                height="250%"
-                //  style={{width:'100%', height:"100%"}}
-                  data={data} 
-                />
+      <div className='row justify-content-center mt-5 d-flex justify-content-center'>
+        <div className='col-12 col-md-6 d-flex align-items-center mb-3'>
+          <ReactPlayer
+            url={props.exercise.url}
+            style={{ width: '100%', height: '100%' }}
+          />
+        </div>
+        <div className='col-12 col-md-6'>
+          <Card>
+            <CardHeader>
+              <CardTitle>
+                <h4>Feedback</h4>
+              </CardTitle>
+            </CardHeader>
+            <CardBody>
+              <div className='row justify-content-center'>
+                <div className='col-12'>
+                  <Line style={{ width: '100%', height: '100%' }} data={data} />
+                </div>
               </div>
-            </div>
-          </CardBody>
-        </Card>
+            </CardBody>
+          </Card>
+        </div>
       </div>
     </div>
-    </>
   );
 }
 

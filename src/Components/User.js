@@ -10,31 +10,35 @@ function User() {
 
   const exercises = [
     {
-      url : "",
+      url : "https://www.youtube.com/watch?v=IODxDxX7oi4&t=2s",
       name: "push ups"
     },
     {
-      url : "",
+      url : "https://www.youtube.com/watch?v=eGo4IYlbE5g",
       name: "squats"
     },
     {
-      url : "",
+      url : "https://www.youtube.com/shorts/SLOkdLLWj8A",
       name: "pull ups"
     },
     {
-      url : "",
+      url : "https://www.youtube.com/shorts/SLOkdLLWj8A",
       name: "launge"
     },
     {
-      url : "",
+      url : "https://www.youtube.com/shorts/SLOkdLLWj8A",
       name: "russian curls"
     },
     {
-      url : "",
+      url : "https://www.youtube.com/shorts/SLOkdLLWj8A",
       name: "crunches"
     }
   ]
-
+  const urls = [
+    "https://www.youtube.com/watch?v=IODxDxX7oi4&t=4s",
+    "https://www.youtube.com/watch?v=eGo4IYlbE5g",
+    "https://www.youtube.com/shorts/SLOkdLLWj8A"
+  ]
   useEffect(() => {
     const acctk = localStorage.getItem('acctk');
     if(acctk !== undefined){
@@ -56,11 +60,6 @@ function User() {
       window.open("http://localhost:3000/", "_self");
     }
   }, []);
-  const urls = [
-    "https://www.youtube.com/watch?v=IODxDxX7oi4&t=4s",
-    "https://www.youtube.com/watch?v=eGo4IYlbE5g",
-    "https://www.youtube.com/shorts/SLOkdLLWj8A"
-  ]
   const dataPoints = [
     [0, 20, 20, 60, 60, 120, NaN, 180, 120, 125, 105, 110, 170],
     [10, 120, 120, 160, 160, 120, NaN, 280, 220, 225, 205, 210, 270],
@@ -85,15 +84,15 @@ function User() {
 
   return (
     <div className='container'>
-      <div className='row d-flex justify-content-center mt-5'>
-        <Exercise url={urls[index]} datapoint={dataPoints[index]} />
+      <div className='row d-flex justify-content-center m-5'>
+        <Exercise exercise={exercises[index]} email="email" datapoint={dataPoints[index]} />
       </div>
       <br></br>
-      <div className='row d-flex justify-content-center mt-5 mb-5'>
-        <div className='col-3 d-flex align-items-center'>
+      <div className='row d-flex justify-content-center m-5'>
+        <div className='col-6 d-flex align-items-center'>
           <Button className='btn btn-danger' onClick={() => handlePrevious()}>Previous</Button>
         </div>
-        <div className='col-3 d-flex align-items-center'>
+        <div className='col-6 d-flex align-items-center'>
           <Button className='btn btn-success' onClick={() => handleNext()}>Next</Button>
         </div>
       </div>

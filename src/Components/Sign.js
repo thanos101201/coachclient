@@ -15,8 +15,8 @@ function Sign() {
             }
         }).then((response) => {
             if(response.data.message === 'User added' || response.data.message === 'User updated'){
-                localStorage.setItem('acc_tk', response.data.acctk);
-                localStorage.setItem("ref_tk", response.data.reftk);
+                localStorage.setItem('acctk', response.data.acctk);
+                localStorage.setItem("reftk", response.data.reftk);
                 window.open("http://localhost:3000/user", "_self");
             }
             else{
