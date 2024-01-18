@@ -9,12 +9,12 @@ function Sign() {
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
         const code = searchParams.get("code");
-        axios.get('http://localhost:3001/user/fetchData', {
+        axios.post('http://localhost:3001/user',{}, {
             headers: {
                 code: code
             }
         }).then((response) => {
-            if(response.data.message === 'User added' || response.data.message === 'User updated'){
+            if(response.data.message === 'User added' || response.data.message === 'User logged in'){
                 localStorage.setItem('acctk', response.data.acctk);
                 localStorage.setItem("reftk", response.data.reftk);
                 window.open("http://localhost:3000/user", "_self");

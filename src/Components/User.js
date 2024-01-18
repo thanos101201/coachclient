@@ -42,12 +42,15 @@ function User() {
   useEffect(() => {
     const acctk = localStorage.getItem('acctk');
     if(acctk !== undefined){
-      const header = {
-        acctk : acctk
+      console.log(acctk);
+      const config = {
+        headers : {
+          acctk : acctk
+        }
       }
-      axios.get('http://localhost:3001/user', header).then((response) => {
+      axios.get('http://localhost:3001/user', config).then((response) => {
         if(response.data.message === 'User data is here'){
-          setUser(response.data.message);
+          setUser(response.data.data[0]);
         }
         else{
           window.open("http://localhost:3000/", "_self");
@@ -85,7 +88,7 @@ function User() {
   return (
     <div className='container'>
       <div className='row d-flex justify-content-center m-5'>
-        <Exercise exercise={exercises[index]} email="email" datapoint={dataPoints[index]} />
+        <Exercise exercise={exercises[index]} email={user.email} datapoint={dataPoints[index]} />
       </div>
       <br></br>
       <div className='row d-flex justify-content-center m-5'>
