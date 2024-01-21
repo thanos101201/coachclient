@@ -79,7 +79,7 @@ function User() {
           acctk : acctk
         }
       }
-      axios.get('http://localhost:3001/user', config).then((response) => {
+      axios.get('https://coacheserver.vercel.app/user', config).then((response) => {
         // console.log(response);
         if(response.data.message === 'User data is here'){
           setUser(response.data.data[0]);
@@ -109,15 +109,15 @@ function User() {
           }
         }
         else{
-          window.open("http://localhost:3000/", "_self");
+          window.open("https://coachclient.vercel.app/", "_self");
         }
       }).catch((eror) => {
         alert(eror.message);
-        // window.open("http://localhost:3000/", "_self");
+        // window.open("https://coachclient.vercel.app/", "_self");
       })
     }
     else{
-      window.open("http://localhost:3000/", "_self");
+      window.open("https://coachclient.vercel.app/", "_self");
     }
   }, []);
   const dataPoints = [

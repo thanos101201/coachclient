@@ -54,7 +54,7 @@ function Exercise(props) {
   useEffect(() => {
     console.log(`exercise is : ${props.exercise.name}`);
     console.log(`Email is ${props.email}`);
-    axios.get('http://localhost:3001/user/cal',{
+    axios.get('https://coacheserver.vercel.app/user/cal',{
       headers: {
         acctk: localStorage.getItem('acctk'),
         exercise : props.exercise.name
@@ -79,7 +79,7 @@ function Exercise(props) {
           <Button
             className='btn btn-success'
             onClick={() => {
-              axios.put('http://localhost:3001/user', {
+              axios.put('https://coacheserver.vercel.app/user', {
                 email: props.email,
                 exercise: props.exercise.name,
               }).then((response) => {
@@ -105,7 +105,7 @@ function Exercise(props) {
                 }
               };
               axios
-                .get('http://localhost:3001/user/update', config)
+                .get('https://coacheserver.vercel.app/user/update', config)
                 .then((response) => {
                   if (response.data.message === 'Data updated') {
                     console.log(`acctk : ${response}`);
