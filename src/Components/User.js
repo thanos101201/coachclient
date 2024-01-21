@@ -149,7 +149,7 @@ function User() {
   return (
     <div className='container'>
       <div className='row d-flex justify-content-center m-5'>
-        <Exercise exercise={calorie[index]} email={user.email} datapoint={dataPoints[index]} block={user.exercise !== 'none'} />
+        <Exercise exercise={calorie[index]} email={user.email} datapoint={dataPoints[index]} block={user.exercise !== 'none' && user.exercise !== undefined} />
       </div>
       <br></br>
       <div className='row d-flex justify-content-center m-5'>
