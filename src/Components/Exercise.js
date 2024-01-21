@@ -74,8 +74,8 @@ function Exercise(props) {
 
   return (
     <div className='container shadow'>
-      <div className='row justify-content-center'>
-        <div className='col-6'>
+      <div className='row d-flex justify-content-center'>
+        <div className='col-6 col-md-4 d-flex align-items-center'>
           <Button
             className='btn btn-success'
             onClick={() => {
@@ -94,7 +94,7 @@ function Exercise(props) {
             Start
           </Button>
         </div>
-        <div className='col-6'>
+        <div className='col-6 col-md-4 d-flex align-items-center'>
           <Button
             className='btn btn-danger'
             onClick={() => {
@@ -124,6 +124,7 @@ function Exercise(props) {
             Stop
           </Button>
         </div>
+        <div className='col-md-4'></div>
       </div>
       <div className='row justify-content-center mt-5 d-flex justify-content-center'>
         <div className='col-12 col-md-6 d-flex align-items-center mb-3'>

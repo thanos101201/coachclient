@@ -17,11 +17,11 @@ function Home() {
   return (
     <div className='container'>
         <div className='row d-flex justify-content-center mt-5'>
-            <div className='col-12 col-md-4'></div>
-            <Form className='col-12 col-md-4 shadow d-flex align-items-center' style={containerStyle}>
+            <div className='col-12 col-md-2'></div>
+            <Form className='col-10 col-md-6 shadow d-flex align-items-center' style={containerStyle}>
                     <FormGroup>
                         <div className='row d-flex justify-content-center'>
-                            <div className='col-12 col-md-10 d-flex align-items-center'>
+                            <div className='col-12 d-flex align-items-center'>
                                 <Button className='btn btn-danger' onClick={() => {
                                     axios.get('https://coacheserver.vercel.app/login').then((response) => {
                                         window.open(response.data.url, "_self");

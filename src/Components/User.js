@@ -158,8 +158,8 @@ function User() {
     }
   }
   return (
-    <div className='container'>
-      <div className='row d-flex justify-content-center m-5'>
+    <div className='container' style={{backgroundColor:'yellow'}}>
+      <div className='row d-flex justify-content-center m-5' style={{backgroundColor:'blue'}}>
         <Exercise exercise={calorie[index]} email={user.email} datapoint={dataPoints[index]} block={user.exercise !== 'none'} />
       </div>
       <br></br>
