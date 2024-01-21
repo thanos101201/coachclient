@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ReactPlayer from 'react-player/lazy';
 import { Button, Card, CardBody, CardHeader, CardTitle } from 'reactstrap';
@@ -31,19 +31,46 @@ function Exercise(props) {
     labels.push(i.toString());
   }
   const datapoints = props.datapoint;
+  
+  const [ points, setPoints ] = useState([]);
+  const [exercise, setExercise] = useState("");
   const data = {
     labels: labels,
     datasets: [
       {
         label: 'Cubic interpolation (monotone)',
-        data: datapoints,
+        data: points,
         borderColor: 'red',
         fill: false,
         cubicInterpolationMode: 'monotone',
-        tension: 0.4,
+        tension: 0.9,
       },
     ],
   };
+  useEffect(() => {
+    setExercise(props.exercise.name);
+    console.log(`exercise in exercise is : ${exercise}`);
+  });
+  useEffect(() => {
+    console.log(`exercise is : ${props.exercise.name}`);
+    console.log(`Email is ${props.email}`);
+    axios.get('http://localhost:3001/user/cal',{
+      headers: {
+        acctk: localStorage.getItem('acctk'),
+        exercise : props.exercise.name
+      }
+    }).then((response) => {
+      if(response.data.message === 'The calorie data is here'){
+        setPoints(response.data.data);
+        console.log(points);
+      }
+      else{
+        alert(response.data.message);
+      }
+    }).catch((er) => {
+      alert(`error occurred \n ${er}`);
+    })
+  }, [exercise]);
 
   return (
     <div className='container shadow'>
@@ -55,8 +82,14 @@ function Exercise(props) {
               axios.put('http://localhost:3001/user', {
                 email: props.email,
                 exercise: props.exercise.name,
-              });
+              }).then((response) => {
+                console.log(response);
+              }).catch((eror) => {
+                console.log(eror);
+              })
             }}
+
+            block={props.block}
           >
             Start
           </Button>
@@ -66,13 +99,16 @@ function Exercise(props) {
             className='btn btn-danger'
             onClick={() => {
               const config = {
-                acctk: localStorage.getItem('acctk'),
-                reftk: localStorage.getItem('reftk'),
+                headers: {
+                  acctk: localStorage.getItem('acctk'),
+                  reftk: localStorage.getItem('reftk'),
+                }
               };
               axios
                 .get('http://localhost:3001/user/update', config)
                 .then((response) => {
                   if (response.data.message === 'Data updated') {
+                    console.log(`acctk : ${response}`);
                     localStorage.setItem('acctk', response.data.acctk);
                     localStorage.setItem('reftk', response.data.reftk);
                   } else {
@@ -83,6 +119,7 @@ function Exercise(props) {
                   alert(error.message);
                 });
             }}
+            block={!props.block}
           >
             Stop
           </Button>
