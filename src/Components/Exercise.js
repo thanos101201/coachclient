@@ -25,6 +25,9 @@ function Exercise(props) {
     Legend
   );
 
+  // const serverUrl = "http://localhost:3001";
+  const serverUrl = "https://coacheserver.vercel.app";
+  const clientUrl = "http://localhost:3000"; //""
   const DATA_COUNT = 12;
   const labels = [];
   for (let i = 0; i < DATA_COUNT; ++i) {
@@ -38,7 +41,7 @@ function Exercise(props) {
     labels: labels,
     datasets: [
       {
-        label: 'Cubic interpolation (monotone)',
+        label: `${props.exercise.name}`,
         data: points,
         borderColor: 'red',
         fill: false,
@@ -54,7 +57,7 @@ function Exercise(props) {
   useEffect(() => {
     console.log(`exercise is : ${props.exercise.name}`);
     console.log(`Email is ${props.email}`);
-    axios.get('https://coacheserver.vercel.app/user/cal',{
+    axios.get(`${serverUrl}/user/cal`,{
       headers: {
         acctk: localStorage.getItem('acctk'),
         exercise : props.exercise.name
@@ -74,12 +77,13 @@ function Exercise(props) {
 
   return (
     <div className='container shadow'>
-      <div className='row d-flex justify-content-center'>
-        <div className='col-6 col-md-4 d-flex align-items-center'>
+      <div className='row d-flex justify-content-center g-3'>
+      <div className='col-2'></div>
+        <div className='col-5 d-flex align-items-center'>
           <Button
             className='btn btn-success'
             onClick={() => {
-              axios.put('https://coacheserver.vercel.app/user', {
+              axios.put(`${serverUrl}/user`, {
                 email: props.email,
                 exercise: props.exercise.name,
               }).then((response) => {
@@ -88,15 +92,15 @@ function Exercise(props) {
                 console.log(eror);
               })
             }}
-
-            block={props.block}
+            
+            disabled={props.block}
           >
             Start
           </Button>
         </div>
-        <div className='col-6 col-md-4 d-flex align-items-center'>
+        <div className='col-5 d-flex align-items-center'>
           <Button
-            className='btn btn-danger'
+            className='ml-3 btn btn-danger'
             onClick={() => {
               const config = {
                 headers: {
@@ -105,7 +109,7 @@ function Exercise(props) {
                 }
               };
               axios
-                .get('https://coacheserver.vercel.app/user/update', config)
+                .get(`${serverUrl}/user/update`, config)
                 .then((response) => {
                   if (response.data.message === 'Data updated') {
                     console.log(`acctk : ${response}`);
@@ -119,12 +123,11 @@ function Exercise(props) {
                   // // alert(error.message);
                 });
             }}
-            block={!props.block}
+            disabled={!props.block}
           >
             Stop
           </Button>
         </div>
-        <div className='col-md-4'></div>
       </div>
       <div className='row justify-content-center mt-5 d-flex justify-content-center'>
         <div className='col-12 col-md-6 d-flex align-items-center mb-3'>

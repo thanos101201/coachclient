@@ -5,6 +5,10 @@ import { Line } from 'react-chartjs-2';
 import axios from 'axios';
 
 function User() {
+  // const serverUrl = "http://localhost:3001";
+  const serverUrl = "https://coacheserver.vercel.app";
+  // const clientUrl = "http://localhost:3000";
+  const clientUrl = "https://coachclient.vercel.app";
   const [index, setIndex] = useState(0);
   const [ user, setUser ] = useState({});
   const [calorie, setCalorie] = useState([
@@ -15,28 +19,13 @@ function User() {
     },
     {
       url : "https://www.youtube.com/watch?v=eGo4IYlbE5g",
-      name: "squats",
-      cal : []
-    },
-    {
-      url : "https://www.youtube.com/shorts/SLOkdLLWj8A",
       name: "pull ups",
+      cal : []
+    },
+    {
+      url : "https://www.youtube.com/shorts/SLOkdLLWj8A",
+      name: "squats",
       cal: []
-    },
-    {
-      url : "https://www.youtube.com/shorts/SLOkdLLWj8A",
-      name: "launge",
-      cal : []
-    },
-    {
-      url : "https://www.youtube.com/shorts/SLOkdLLWj8A",
-      name: "russian curls",
-      cal : []
-    },
-    {
-      url : "https://www.youtube.com/shorts/SLOkdLLWj8A",
-      name: "crunches",
-      cal : []
     }
   ]);
   const exercises = [
@@ -79,7 +68,7 @@ function User() {
           acctk : acctk
         }
       }
-      axios.get('https://coacheserver.vercel.app/user', config).then((response) => {
+      axios.get(`${serverUrl}/user`, config).then((response) => {
         // console.log(response);
         if(response.data.message === 'User data is here'){
           setUser(response.data.data[0]);
@@ -109,15 +98,15 @@ function User() {
           }
         }
         else{
-          window.open("https://coachclient.vercel.app/", "_self");
+          window.open(`${clientUrl}/`, "_self");
         }
       }).catch((eror) => {
         // // alert(eror.message);
-        // window.open("https://coachclient.vercel.app/", "_self");
+        // window.open("${clientUrl}/", "_self");
       })
     }
     else{
-      window.open("https://coachclient.vercel.app/", "_self");
+      window.open(`${clientUrl}/`, "_self");
     }
   }, []);
   const dataPoints = [
@@ -158,16 +147,17 @@ function User() {
     }
   }
   return (
-    <div className='container' style={{backgroundColor:'yellow'}}>
-      <div className='row d-flex justify-content-center m-5' style={{backgroundColor:'blue'}}>
+    <div className='container'>
+      <div className='row d-flex justify-content-center m-5'>
         <Exercise exercise={calorie[index]} email={user.email} datapoint={dataPoints[index]} block={user.exercise !== 'none'} />
       </div>
       <br></br>
       <div className='row d-flex justify-content-center m-5'>
-        <div className='col-6 d-flex align-items-center'>
+        <div className='col-2'></div>
+        <div className='col-5 d-flex align-items-center'>
           <Button className='btn btn-danger' onClick={() => handlePrevious()}>Previous</Button>
         </div>
-        <div className='col-6 d-flex align-items-center'>
+        <div className='col-5 d-flex align-items-center'>
           <Button className='btn btn-success' onClick={() => handleNext()}>Next</Button>
         </div>
       </div>

@@ -8,11 +8,15 @@ import { Card, CardBody, CardHeader, CardImg } from 'reactstrap';
 function Sign() {
   
   const location = useLocation();
-  
+//   const clientUrl = "http://localhost:3000";
+  const clientUrl = "https://coachclient.vercel.app";
+//   const serverUrl = "http://localhost:3001";
+  const serverUrl = "https://coacheserver.vercel.app";
+
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
         const code = searchParams.get("code");
-        axios.post('https://coacheserver.vercel.app/user',{}, {
+        axios.post(`${serverUrl}/user`,{}, {
             headers: {
                 code: code
             }
@@ -22,7 +26,7 @@ function Sign() {
                 console.log(response);
                 localStorage.setItem('acctk', response.data.acctk);
                 localStorage.setItem("reftk", response.data.reftk);
-                window.open("https://coachclient.vercel.app/user", "_self");
+                window.open(`${clientUrl}/user`, "_self");
             }
             else{
                 // alert(response.data.message);
@@ -47,7 +51,7 @@ function Sign() {
                         <div className='row d-flex justify-content-center'>
                             <div className='col-12 d-flex align-items-center'>
                                 <p>
-                                    Please wait for 30 seconds if not redirected click <a href="https://coachclient.vercel.app/user">here</a> 
+                                    Please wait for 30 seconds if not redirected click <a href={`${clientUrl}/user`}>here</a> 
                                 </p>
                             </div>
                         </div>

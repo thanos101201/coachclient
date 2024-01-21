@@ -14,6 +14,10 @@ import axios from 'axios';
         // backgroundColor: 'rgba(0, 0, 0, 0.5)', // Glassmorphism background color
       };
 function Home() {
+    // const clientUrl = "http://localhost:3000";
+    const clientUrl = "https://coachclient.vercel.app";
+    // const serverUrl = "http://localhost:3001";
+    const serverUrl = "https://coacheserver.vercel.app";
   return (
     <div className='container'>
         <div className='row d-flex justify-content-center mt-5'>
@@ -23,7 +27,7 @@ function Home() {
                         <div className='row d-flex justify-content-center'>
                             <div className='col-12 d-flex align-items-center'>
                                 <Button className='btn btn-danger' onClick={() => {
-                                    axios.get('https://coacheserver.vercel.app/login').then((response) => {
+                                    axios.get(`${serverUrl}/login`).then((response) => {
                                         window.open(response.data.url, "_self");
                                     }).catch((eror) => {
                                         alert(eror.message);
