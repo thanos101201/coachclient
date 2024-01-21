@@ -112,7 +112,7 @@ function User() {
           window.open("https://coachclient.vercel.app/", "_self");
         }
       }).catch((eror) => {
-        alert(eror.message);
+        // // alert(eror.message);
         // window.open("https://coachclient.vercel.app/", "_self");
       })
     }

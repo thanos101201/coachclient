@@ -25,10 +25,10 @@ function Sign() {
                 window.open("https://coachclient.vercel.app/user", "_self");
             }
             else{
-                alert(response.data.message);
+                // alert(response.data.message);
             }
         }).catch((Eror) => {
-            alert(Eror.message);
+            // alert(Eror.message);
         })
   }, []);
   return (

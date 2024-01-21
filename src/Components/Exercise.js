@@ -65,10 +65,10 @@ function Exercise(props) {
         console.log(points);
       }
       else{
-        alert(response.data.message);
+        // // alert(response.data.message);
       }
     }).catch((er) => {
-      alert(`error occurred \n ${er}`);
+      // // alert(`error occurred \n ${er}`);
     })
   }, [exercise]);
 
@@ -112,11 +112,11 @@ function Exercise(props) {
                     localStorage.setItem('acctk', response.data.acctk);
                     localStorage.setItem('reftk', response.data.reftk);
                   } else {
-                    alert(response.data.message);
+                    // // alert(response.data.message);
                   }
                 })
                 .catch((error) => {
-                  alert(error.message);
+                  // // alert(error.message);
                 });
             }}
             block={!props.block}
