@@ -17,7 +17,7 @@ function Home() {
     // const clientUrl = "http://localhost:3000";
     const clientUrl = "https://coachclient.vercel.app";
     // const serverUrl = "http://localhost:3001";
-    const serverUrl = "https://coacheserver.vercel.app";
+    const serverUrl = process.env.REACT_APP_SERVER_URL; //"https://coacheserver.vercel.app";
   return (
     <div className='container'>
         <div className='row d-flex justify-content-center mt-5'>

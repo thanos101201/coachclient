@@ -9,9 +9,9 @@ function Sign() {
   
   const location = useLocation();
 //   const clientUrl = "http://localhost:3000";
-  const clientUrl = "https://coachclient.vercel.app";
+  const clientUrl = process.env.REACT_APP_CLIENT_URL; //"https://coachclient.vercel.app";
 //   const serverUrl = "http://localhost:3001";
-  const serverUrl = "https://coacheserver.vercel.app";
+  const serverUrl = process.env.REACT_APP_SERVER_URL //"https://coacheserver.vercel.app";
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);

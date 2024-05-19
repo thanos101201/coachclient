@@ -26,8 +26,8 @@ function Exercise(props) {
   );
 
   // const serverUrl = "http://localhost:3001";
-  const serverUrl = "https://coacheserver.vercel.app";
-  const clientUrl = "http://localhost:3000"; //""
+  const serverUrl = process.env.REACT_APP_SERVER_URL; //"https://coacheserver.vercel.app";
+  const clientUrl =  process.env.REACT_APP_CLIENT_URL; // "http://localhost:3000";
   const DATA_COUNT = 12;
   const labels = [];
   for (let i = 0; i < DATA_COUNT; ++i) {
